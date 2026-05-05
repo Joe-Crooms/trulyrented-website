@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrulyRented — Your Rental Business, Ready for Anything</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C8A84B;
+    --gold-light: #E2C97E;
+    --gold-pale: #FBF4E3;
+    --ink: #080C12;
+    --navy: #0D1F35;
+    --white: #FAFAF8;
+    --offwhite: #F4F3EF;
+    --gray: #72737D;
+    --gray-light: #E5E4E0;
+    --green: #2ECC8A;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Outfit', sans-serif; background: var(--white); color: var(--ink); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.1rem 5rem;
+    background: rgba(250,250,248,0.94); backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(200,168,75,0.18);
+  }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.55rem; font-weight: 700; color: var(--ink); text-decoration: none; }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+  .nav-links a { font-size: 0.82rem; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta { background: var(--gold) !important; color: var(--ink) !important; padding: 0.55rem 1.3rem; border-radius: 3px; }
+  .nav-cta:hover { background: var(--gold-light) !important; }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 55% 45%; position: relative; overflow: hidden; }
+  .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 9rem 4rem 5rem 5rem; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--gold-pale); border: 1px solid rgba(200,168,75,0.3);
+    border-radius: 100px; padding: 0.35rem 0.9rem;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 1.75rem; width: fit-content;
+  }
+  .pill::before { content: '●'; font-size: 0.5rem; }
+  .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 4.5vw, 5rem); font-weight: 500; line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-sub { font-size: 1.05rem; font-weight: 300; line-height: 1.75; color: var(--gray); max-width: 430px; margin-bottom: 2.5rem; }
+  .hero-actions { display: flex; gap: 1rem; align-items: center; }
+  .btn-dark { background: var(--ink); color: var(--white); padding: 0.85rem 1.9rem; font-size: 0.84rem; font-weight: 500; letter-spacing: 0.04em; text-decoration: none; border-radius: 3px; transition: background 0.2s, transform 0.15s; display: inline-block; }
+  .btn-dark:hover { background: var(--navy); transform: translateY(-2px); }
+  .btn-ghost { font-size: 0.84rem; font-weight: 500; color: var(--gray); text-decoration: none; display: flex; align-items: center; gap: 0.45rem; transition: color 0.2s; }
+  .btn-ghost:hover { color: var(--ink); }
+  .hero-props { display: flex; gap: 0; margin-top: 3.5rem; border-top: 1px solid var(--gray-light); padding-top: 2rem; }
+  .hero-prop { flex: 1; padding-right: 2rem; border-right: 1px solid var(--gray-light); margin-right: 2rem; }
+  .hero-prop:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+  .prop-val { font-family: 'Playfair Display', serif; font-size: 1.75rem; font-weight: 700; color: var(--ink); line-height: 1; }
+  .prop-label { font-size: 0.75rem; color: var(--gray); margin-top: 0.3rem; line-height: 1.4; }
+
+  /* HERO RIGHT */
+  .hero-right { position: relative; overflow: hidden; }
+  .hero-visual { position: absolute; inset: 0; background: linear-gradient(150deg, var(--navy) 0%, #071525 100%); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .hero-visual::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 20% 60%, rgba(200,168,75,0.12) 0%, transparent 55%), radial-gradient(ellipse at 80% 10%, rgba(27,110,243,0.15) 0%, transparent 50%); }
+  .dash-wrap { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 1rem; width: 290px; animation: floatY 7s ease-in-out infinite; }
+  @keyframes floatY { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  .dash-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(200,168,75,0.25); backdrop-filter: blur(16px); border-radius: 10px; padding: 1.3rem; }
+  .dash-label { font-size: 0.63rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 0.4rem; }
+  .dash-big { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 700; color: var(--white); line-height: 1; }
+  .dash-sub { font-size: 0.72rem; color: var(--green); margin-top: 0.25rem; }
+  .dash-bar-wrap { margin-top: 0.85rem; }
+  .dash-bar-label { display: flex; justify-content: space-between; font-size: 0.68rem; color: rgba(255,255,255,0.3); margin-bottom: 0.3rem; }
+  .dash-bar { height: 3px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
+  .dash-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-light)); border-radius: 2px; animation: grow 1.8s ease-out forwards; }
+  @keyframes grow { from { width: 0; } }
+  .dash-booking-list { display: flex; flex-direction: column; gap: 0.5rem; }
+  .dash-booking { display: flex; align-items: center; gap: 0.6rem; padding: 0.5rem 0.65rem; background: rgba(255,255,255,0.04); border-radius: 6px; border: 1px solid rgba(255,255,255,0.06); }
+  .dash-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+  .dash-booking-text { flex: 1; }
+  .dash-booking-name { font-size: 0.75rem; color: rgba(255,255,255,0.75); }
+  .dash-booking-date { font-size: 0.62rem; color: rgba(255,255,255,0.28); }
+  .dash-booking-amt { font-size: 0.75rem; color: var(--green); font-weight: 500; }
+  .dash-fee-row { display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .dash-fee-row:last-child { border-bottom: none; }
+  .dash-fee-label { font-size: 0.68rem; color: rgba(255,255,255,0.38); }
+  .dash-fee-val { font-size: 0.75rem; color: rgba(255,255,255,0.7); }
+  .dash-fee-val.gold { color: var(--gold); font-weight: 600; }
+  .dash-fee-val.green { color: var(--green); }
+
+  /* MARQUEE */
+  .marquee { background: var(--ink); padding: 0.9rem 0; overflow: hidden; }
+  .marquee-track { display: flex; gap: 2.5rem; white-space: nowrap; animation: ticker 22s linear infinite; }
+  .marquee-item { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.32); display: flex; align-items: center; gap: 0.65rem; flex-shrink: 0; }
+  .marquee-item span { color: var(--gold); }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* SECTIONS */
+  .section { padding: 6rem 5rem; }
+  .eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1rem; }
+  .eyebrow::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--gold); }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 3.5vw, 3.4rem); font-weight: 500; line-height: 1.12; letter-spacing: -0.02em; margin-bottom: 1rem; }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .section-body { font-size: 0.98rem; color: var(--gray); line-height: 1.75; max-width: 480px; }
+
+  /* HOW IT WORKS */
+  .how { background: var(--offwhite); }
+  .how-layout { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start; margin-top: 3rem; }
+  .how-steps { display: flex; flex-direction: column; }
+  .how-step { display: flex; gap: 1.4rem; padding: 1.6rem 0; border-bottom: 1px solid var(--gray-light); transition: padding-left 0.2s; cursor: default; }
+  .how-step:first-child { padding-top: 0; }
+  .how-step:last-child { border-bottom: none; }
+  .how-step:hover { padding-left: 0.4rem; }
+  .step-num { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--gold); width: 1.8rem; flex-shrink: 0; padding-top: 0.1rem; }
+  .step-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 500; margin-bottom: 0.35rem; }
+  .step-desc { font-size: 0.855rem; color: var(--gray); line-height: 1.7; }
+  .compare-card { background: var(--white); border: 1px solid var(--gray-light); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 30px rgba(0,0,0,0.06); }
+  .compare-header { display: grid; grid-template-columns: 1.5fr 1fr 1fr; background: var(--ink); padding: 1rem 1.5rem; }
+  .compare-col-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+  .compare-col-label.muted { color: rgba(255,255,255,0.35); }
+  .compare-col-label.gold { color: var(--gold); text-align: center; }
+  .compare-col-label.center { color: rgba(255,255,255,0.35); text-align: center; }
+  .compare-row { display: grid; grid-template-columns: 1.5fr 1fr 1fr; padding: 0.85rem 1.5rem; border-bottom: 1px solid var(--gray-light); align-items: center; }
+  .compare-row:last-child { border-bottom: none; }
+  .compare-row:nth-child(even) { background: var(--offwhite); }
+  .compare-feature { font-size: 0.8rem; color: var(--gray); }
+  .compare-val { font-size: 0.8rem; font-weight: 500; text-align: center; }
+  .compare-val.bad { color: #E05252; }
+  .compare-val.good { color: var(--green); }
+  .compare-val.gold { color: var(--gold); font-weight: 600; }
+
+  /* REVENUE */
+  .revenue { background: var(--ink); color: var(--white); }
+  .revenue .eyebrow { color: var(--gold); }
+  .revenue .eyebrow::before { background: var(--gold); }
+  .revenue .section-body { color: rgba(255,255,255,0.42); }
+  .rev-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: rgba(255,255,255,0.06); margin-top: 3.5rem; border: 1px solid rgba(255,255,255,0.06); }
+  .rev-card { background: var(--ink); padding: 2.25rem; transition: background 0.3s; cursor: default; }
+  .rev-card:hover { background: rgba(200,168,75,0.05); }
+  .rev-icon { font-size: 1.4rem; margin-bottom: 1.2rem; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(200,168,75,0.22); border-radius: 6px; background: rgba(200,168,75,0.05); }
+  .rev-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 500; color: var(--white); margin-bottom: 0.45rem; }
+  .rev-amount { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--gold); margin-bottom: 0.45rem; }
+  .rev-desc { font-size: 0.8rem; color: rgba(255,255,255,0.38); line-height: 1.65; }
+  .scale-table { margin-top: 3rem; width: 100%; border-collapse: collapse; border: 1px solid rgba(255,255,255,0.08); }
+  .scale-table th { padding: 0.8rem 1.2rem; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.32); font-weight: 500; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.08); text-align: left; }
+  .scale-table td { padding: 0.8rem 1.2rem; font-size: 0.82rem; color: rgba(255,255,255,0.55); border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .scale-table tr:last-child td { border-bottom: none; }
+  .scale-table td.hl { color: var(--gold); font-weight: 600; }
+  .scale-table td.gr { color: var(--green); font-weight: 600; }
+
+  /* WHO WE SERVE */
+  .serve { background: var(--white); }
+  .serve-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 3rem; }
+  .serve-card { border: 1px solid var(--gray-light); border-radius: 6px; padding: 1.75rem; display: flex; gap: 1.1rem; align-items: flex-start; transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s; cursor: default; }
+  .serve-card:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(200,168,75,0.1); }
+  .serve-ico { font-size: 1.5rem; width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; background: var(--gold-pale); border-radius: 6px; flex-shrink: 0; }
+  .serve-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 500; margin-bottom: 0.35rem; }
+  .serve-desc { font-size: 0.8rem; color: var(--gray); line-height: 1.65; }
+
+  /* PRICING */
+  .pricing { background: var(--offwhite); }
+  .pricing-note { background: var(--gold-pale); border: 1px solid rgba(200,168,75,0.3); border-radius: 6px; padding: 1rem 1.5rem; font-size: 0.84rem; color: var(--ink); line-height: 1.65; margin-bottom: 3rem; max-width: 680px; }
+  .pricing-note strong { color: #8B6914; }
+  .pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; max-width: 760px; }
+  .price-card { background: var(--white); border: 1px solid var(--gray-light); border-radius: 6px; padding: 2.25rem; position: relative; transition: transform 0.25s, box-shadow 0.25s; }
+  .price-card:hover { transform: translateY(-4px); box-shadow: 0 16px 50px rgba(0,0,0,0.07); }
+  .price-card.featured { background: var(--ink); border-color: var(--gold); color: var(--white); }
+  .price-badge { position: absolute; top: -11px; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--ink); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.7rem; border-radius: 2px; white-space: nowrap; }
+  .price-tier { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
+  .price-amt { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 700; line-height: 1; margin-bottom: 0.2rem; }
+  .price-period { font-size: 0.76rem; color: var(--gray); margin-bottom: 1.2rem; }
+  .price-card.featured .price-period { color: rgba(255,255,255,0.32); }
+  .price-pitch { font-size: 0.82rem; line-height: 1.65; color: var(--gray); padding-bottom: 1.2rem; margin-bottom: 1.2rem; border-bottom: 1px solid var(--gray-light); }
+  .price-card.featured .price-pitch { color: rgba(255,255,255,0.42); border-color: rgba(255,255,255,0.1); }
+  .price-features { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.75rem; }
+  .price-features li { font-size: 0.78rem; color: var(--gray); display: flex; align-items: flex-start; gap: 0.5rem; line-height: 1.5; }
+  .price-card.featured .price-features li { color: rgba(255,255,255,0.5); }
+  .price-features li::before { content: '✓'; color: var(--gold); font-weight: 700; font-size: 0.72rem; flex-shrink: 0; margin-top: 0.05rem; }
+  .price-cta { display: block; text-align: center; padding: 0.8rem; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none; border-radius: 3px; transition: all 0.2s; }
+  .price-cta-outline { border: 1.5px solid var(--gray-light); color: var(--ink); }
+  .price-cta-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .price-cta-gold { background: var(--gold); color: var(--ink); }
+  .price-cta-gold:hover { background: var(--gold-light); }
+
+  /* OWNERSHIP */
+  .ownership { background: var(--white); }
+  .own-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 3rem; }
+  .own-list { display: flex; flex-direction: column; gap: 1.2rem; }
+  .own-item { display: flex; gap: 1rem; align-items: flex-start; }
+  .own-check { width: 26px; height: 26px; border-radius: 50%; background: var(--gold-pale); border: 1px solid rgba(200,168,75,0.3); display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 0.68rem; flex-shrink: 0; }
+  .own-item-title { font-size: 0.94rem; font-weight: 600; margin-bottom: 0.2rem; }
+  .own-item-desc { font-size: 0.8rem; color: var(--gray); line-height: 1.65; }
+  .own-callout { background: var(--navy); border-radius: 10px; padding: 2.5rem; color: var(--white); }
+  .callout-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 500; margin-bottom: 0.85rem; color: var(--gold); }
+  .callout-pitch { font-size: 0.875rem; color: rgba(255,255,255,0.5); line-height: 1.75; margin-bottom: 1.5rem; }
+  .callout-row { display: flex; justify-content: space-between; padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.07); font-size: 0.8rem; }
+  .callout-row:last-child { border-bottom: none; }
+  .callout-row-label { color: rgba(255,255,255,0.38); }
+  .callout-row-val { color: var(--white); font-weight: 500; }
+  .callout-row-val.gold { color: var(--gold); }
+
+  /* CTA */
+  .cta { background: var(--ink); padding: 7rem 5rem; position: relative; overflow: hidden; }
+  .cta::before { content: ''; position: absolute; top: -200px; right: -100px; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(200,168,75,0.07) 0%, transparent 70%); pointer-events: none; }
+  .cta-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; position: relative; z-index: 2; }
+  .cta-title { font-family: 'Playfair Display', serif; font-size: clamp(2.4rem, 3.5vw, 3.8rem); font-weight: 500; color: var(--white); line-height: 1.1; letter-spacing: -0.02em; }
+  .cta-title em { font-style: italic; color: var(--gold); }
+  .cta-body { font-size: 0.94rem; color: rgba(255,255,255,0.38); line-height: 1.75; margin-top: 1.2rem; }
+  .cta-form { display: flex; flex-direction: column; gap: 0.7rem; }
+  .cta-input { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--white); padding: 0.82rem 1rem; font-family: 'Outfit', sans-serif; font-size: 0.88rem; border-radius: 3px; outline: none; transition: border-color 0.2s; }
+  .cta-input::placeholder { color: rgba(255,255,255,0.2); }
+  .cta-input:focus { border-color: var(--gold); }
+  .cta-select { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.65); padding: 0.82rem 1rem; font-family: 'Outfit', sans-serif; font-size: 0.88rem; border-radius: 3px; outline: none; -webkit-appearance: none; transition: border-color 0.2s; }
+  .cta-select:focus { border-color: var(--gold); }
+  .cta-select option { background: var(--navy); }
+  .cta-submit { background: var(--gold); color: var(--ink); border: none; padding: 0.9rem 1rem; font-family: 'Outfit', sans-serif; font-size: 0.84rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; border-radius: 3px; transition: background 0.2s, transform 0.15s; }
+  .cta-submit:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .cta-reassure { font-size: 0.72rem; color: rgba(255,255,255,0.22); text-align: center; }
+
+  /* FOOTER */
+  footer { background: #05080D; padding: 2.5rem 5rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.04); }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--white); }
+  .footer-logo span { color: var(--gold); }
+  .footer-tag { font-size: 0.72rem; color: rgba(255,255,255,0.18); margin-top: 0.2rem; }
+  .footer-links { display: flex; gap: 2rem; list-style: none; }
+  .footer-links a { font-size: 0.74rem; color: rgba(255,255,255,0.22); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy { font-size: 0.7rem; color: rgba(255,255,255,0.14); }
+
+  /* ANIMATIONS */
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 960px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 7rem 1.5rem 4rem; }
+    .section { padding: 4rem 1.5rem; }
+    .how-layout, .own-grid, .cta-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .rev-grid, .serve-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; max-width: 380px; }
+    .cta { padding: 4rem 1.5rem; }
+    footer { flex-direction: column; gap: 1.25rem; text-align: center; padding: 2rem 1.5rem; }
+    .hero-props { flex-direction: column; gap: 1rem; }
+    .hero-prop { border-right: none; border-bottom: 1px solid var(--gray-light); padding-bottom: 1rem; padding-right: 0; margin-right: 0; }
+    .hero-prop:last-child { border-bottom: none; padding-bottom: 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Truly<span>Rented</span></a>
+  <ul class="nav-links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#revenue">Revenue Model</a></li>
+    <li><a href="#serve">Who We Serve</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact" class="nav-cta">Get Started</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding:0;">
+  <div class="hero-left">
+    <div class="pill">White-Glove Booking Websites</div>
+    <h1 class="hero-title">
+      Stop losing revenue<br>
+      to middlemen. Own your<br>
+      <em>direct bookings.</em>
+    </h1>
+    <p class="hero-sub">We build you a custom, branded reservation website — so guests book directly with you, you keep more revenue, and your business runs on autopilot.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-dark">Get My Website Built</a>
+      <a href="#how" class="btn-ghost">See how it works →</a>
+    </div>
+    <div class="hero-props">
+      <div class="hero-prop">
+        <div class="prop-val">$500</div>
+        <div class="prop-label">One-time setup.<br>No ongoing fees to us.</div>
+      </div>
+      <div class="hero-prop">
+        <div class="prop-val">3.5%</div>
+        <div class="prop-label">Platform fee paid by<br>your guests, not you.</div>
+      </div>
+      <div class="hero-prop">
+        <div class="prop-val">~$8K</div>
+        <div class="prop-label">Avg. saved per year<br>vs. listing platforms.</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-visual">
+      <div class="dash-wrap">
+        <div class="dash-card">
+          <div class="dash-label">Annual revenue retained</div>
+          <div class="dash-big">$74,800</div>
+          <div class="dash-sub">↑ ~$8,000 saved vs. listing platforms this year</div>
+          <div class="dash-bar-wrap">
+            <div class="dash-bar-label"><span>Booking rate</span><span>87%</span></div>
+            <div class="dash-bar"><div class="dash-fill" style="width:87%"></div></div>
+          </div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-label">Upcoming reservations</div>
+          <div class="dash-booking-list">
+            <div class="dash-booking">
+              <div class="dash-dot"></div>
+              <div class="dash-booking-text">
+                <div class="dash-booking-name">Johnson Family</div>
+                <div class="dash-booking-date">May 10 – May 17 · 7 nights</div>
+              </div>
+              <div class="dash-booking-amt">$2,513</div>
+            </div>
+            <div class="dash-booking">
+              <div class="dash-dot"></div>
+              <div class="dash-booking-text">
+                <div class="dash-booking-name">Martinez Group</div>
+                <div class="dash-booking-date">May 20 – May 24 · 4 nights</div>
+              </div>
+              <div class="dash-booking-amt">$1,484</div>
+            </div>
+            <div class="dash-booking">
+              <div class="dash-dot"></div>
+              <div class="dash-booking-text">
+                <div class="dash-booking-name">Chen, Wei</div>
+                <div class="dash-booking-date">Jun 1 – Jun 8 · 7 nights</div>
+              </div>
+              <div class="dash-booking-amt">$2,513</div>
+            </div>
+          </div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-label">Checkout breakdown · $900 booking</div>
+          <div class="dash-fee-row"><div class="dash-fee-label">Nightly rate</div><div class="dash-fee-val">$900.00</div></div>
+          <div class="dash-fee-row"><div class="dash-fee-label">Cleaning fee</div><div class="dash-fee-val">$85.00</div></div>
+          <div class="dash-fee-row"><div class="dash-fee-label">Service & processing (guest pays)</div><div class="dash-fee-val gold">$60.96</div></div>
+          <div class="dash-fee-row"><div class="dash-fee-label">You receive</div><div class="dash-fee-val green">$985.00</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <div class="marquee-item"><span>⚓</span> Charter Captains</div>
+    <div class="marquee-item"><span>🏔️</span> Mountain Retreats</div>
+    <div class="marquee-item"><span>🏡</span> Vacation Rentals</div>
+    <div class="marquee-item"><span>🎣</span> Fishing Guides</div>
+    <div class="marquee-item"><span>🌊</span> Beach Houses</div>
+    <div class="marquee-item"><span>🏕️</span> Glamping Sites</div>
+    <div class="marquee-item"><span>🍷</span> Vineyard Stays</div>
+    <div class="marquee-item"><span>🏘️</span> Long Term Rentals</div>
+    <div class="marquee-item"><span>🏜️</span> Desert Retreats</div>
+    <div class="marquee-item"><span>⚓</span> Charter Captains</div>
+    <div class="marquee-item"><span>🏔️</span> Mountain Retreats</div>
+    <div class="marquee-item"><span>🏡</span> Vacation Rentals</div>
+    <div class="marquee-item"><span>🎣</span> Fishing Guides</div>
+    <div class="marquee-item"><span>🌊</span> Beach Houses</div>
+    <div class="marquee-item"><span>🏕️</span> Glamping Sites</div>
+    <div class="marquee-item"><span>🍷</span> Vineyard Stays</div>
+    <div class="marquee-item"><span>🏘️</span> Long Term Rentals</div>
+    <div class="marquee-item"><span>🏜️</span> Desert Retreats</div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="section how" id="how">
+  <div class="eyebrow">How It Works</div>
+  <h2 class="section-title">We build it. They book it.<br><em>You keep more.</em></h2>
+  <div class="how-layout">
+    <div>
+      <p class="section-body" style="margin-bottom:2rem;">Every TrulyRented site is built from scratch for your business — not a template. We handle the tech, design, payments, and setup so you can focus on what you do best.</p>
+      <div class="how-steps">
+        <div class="how-step reveal">
+          <div class="step-num">01</div>
+          <div>
+            <div class="step-title">Discovery Call</div>
+            <div class="step-desc">A real conversation about your property, your guests, and your goals. No generic intake forms — we figure out exactly what your site needs to convert browsers into bookers.</div>
+          </div>
+        </div>
+        <div class="how-step reveal">
+          <div class="step-num">02</div>
+          <div>
+            <div class="step-title">Custom Website Build</div>
+            <div class="step-desc">Our team designs and builds your branded site on your own domain from the ground up. You review and approve before anything goes live.</div>
+          </div>
+        </div>
+        <div class="how-step reveal">
+          <div class="step-num">03</div>
+          <div>
+            <div class="step-title">Booking & Payment Setup</div>
+            <div class="step-desc">We integrate your real-time availability calendar, Stripe payment processing, automated guest confirmations, and your cancellation policy. Fully tested before launch.</div>
+          </div>
+        </div>
+        <div class="how-step reveal">
+          <div class="step-num">04</div>
+          <div>
+            <div class="step-title">Launch & Ongoing Support</div>
+            <div class="step-desc">Your site goes live and starts collecting direct bookings. We stay on for support, updates, and improvements as your business grows.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="compare-card">
+        <div class="compare-header">
+          <div class="compare-col-label muted">On $80K annual bookings</div>
+          <div class="compare-col-label center">Listing Platforms</div>
+          <div class="compare-col-label gold">TrulyRented</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-feature">Host / platform fee</div>
+          <div class="compare-val bad">3% (~$2,400)</div>
+          <div class="compare-val good">$0</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-feature">Guest fee (hurts conversions)</div>
+          <div class="compare-val bad">14% (~$11,200)</div>
+          <div class="compare-val good">3.5% (guest-paid)</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-feature">You own your brand</div>
+          <div class="compare-val bad">✗ No</div>
+          <div class="compare-val good">✓ Yes</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-feature">Direct guest relationship</div>
+          <div class="compare-val bad">✗ No</div>
+          <div class="compare-val good">✓ Yes</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-feature">Owner nets annually</div>
+          <div class="compare-val bad">~$66,400</div>
+          <div class="compare-val gold">~$74,800</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-feature">Annual savings</div>
+          <div class="compare-val">—</div>
+          <div class="compare-val gold">~$8,000 / yr</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVENUE MODEL -->
+<section class="section revenue" id="revenue">
+  <div class="eyebrow">Our Revenue Model</div>
+  <h2 class="section-title" style="color:var(--white);">Transparent by design.<br><em>Aligned with your success.</em></h2>
+  <p class="section-body">We make money when your guests book — not from you. Here's exactly how it works and what it looks like at scale.</p>
+  <div class="rev-grid">
+    <div class="rev-card reveal">
+      <div class="rev-icon">💰</div>
+      <div class="rev-title">Setup Fee</div>
+      <div class="rev-amount">$500</div>
+      <div class="rev-desc">Collected before work begins. Covers discovery, design, build, and launch. You pay once — we deliver a complete direct booking website.</div>
+    </div>
+    <div class="rev-card reveal">
+      <div class="rev-icon">📈</div>
+      <div class="rev-title">Platform Fee</div>
+      <div class="rev-amount">3.5%</div>
+      <div class="rev-desc">Added at guest checkout automatically via Stripe Connect. Deposits to our account on every transaction — you never see it or touch it.</div>
+    </div>
+    <div class="rev-card reveal">
+      <div class="rev-icon">🌐</div>
+      <div class="rev-title">Annual Domain Fee</div>
+      <div class="rev-amount">$25/yr</div>
+      <div class="rev-desc">Billed annually to cover your domain renewal. Should you ever discontinue services, your domain is transferred to you — no holdbacks, no hassle.</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- WHO WE SERVE -->
+<section class="section serve" id="serve">
+  <div class="eyebrow">Who We Serve</div>
+  <h2 class="section-title">Built for every kind of<br><em>rental business.</em></h2>
+  <p class="section-body">If guests need to reserve it, we'll build the system to make it seamless — no matter the property type or location.</p>
+  <div class="serve-grid">
+    <div class="serve-card reveal">
+      <div class="serve-ico">⚓</div>
+      <div>
+        <div class="serve-name">Charter Captains & Guides</div>
+        <div class="serve-desc">Fishing charters, sailing trips, diving excursions, kayak tours. Get a professional booking site that fills your calendar, handles deposits, and sends automated guest confirmations.</div>
+      </div>
+    </div>
+    <div class="serve-card reveal">
+      <div class="serve-ico">🏡</div>
+      <div>
+        <div class="serve-name">Short-Term Rental Owners</div>
+        <div class="serve-desc">Beach houses, mountain cabins, desert retreats, lakefront cottages. Stop paying third-party listing fees and own your direct booking channel completely.</div>
+      </div>
+    </div>
+    <div class="serve-card reveal">
+      <div class="serve-ico">🏘️</div>
+      <div>
+        <div class="serve-name">Long-Term Landlords</div>
+        <div class="serve-desc">Single units or full portfolios. Collect rental applications, manage leases, and accept monthly rent payments — all from your own branded platform.</div>
+      </div>
+    </div>
+    <div class="serve-card reveal">
+      <div class="serve-ico">🌿</div>
+      <div>
+        <div class="serve-name">Hospitality & Experience Hosts</div>
+        <div class="serve-desc">Glamping sites, event spaces, wellness retreats, hunting lodges, vineyard stays. If it needs a reservation, we'll build the system around it.</div>
+      </div>
+    </div>
+    <div class="serve-card reveal">
+      <div class="serve-ico">✨</div>
+      <div>
+        <div class="serve-name">Any Reservation-Based Business</div>
+        <div class="serve-desc">If your business takes reservations, we can build around it. From boat slips to barnyard venues, photography studios to private dining — if guests need to book it, we'll make it easy.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section pricing" id="pricing">
+  <div class="eyebrow">Pricing</div>
+  <h2 class="section-title">Simple, <em>transparent</em> pricing.</h2>
+  <div class="pricing-note">
+    <strong>No monthly fees — ever.</strong> A one-time setup fee gets your site built and launched. After that, you pay just $25/yr for domain renewal — or nothing if you already own your domain. Our 3.5% platform fee is added at guest checkout and paid by the guest, keeping your ongoing costs minimal and predictable.
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card featured reveal">
+      <div class="price-badge">Best for Most Rentals</div>
+      <div class="price-tier">Standard</div>
+      <div class="price-amt">$500</div>
+      <div class="price-period">one-time setup · zero monthly fee to owner</div>
+      <div class="price-pitch">Everything most rental businesses need to launch a professional direct booking site and start keeping more of what they earn.</div>
+      <ul class="price-features">
+        <li>Custom branded website</li>
+        <li>Real-time availability calendar</li>
+        <li>Secure online payment processing</li>
+        <li>Automated booking confirmations</li>
+        <li>Cancellation policy integration</li>
+        <li>Your domain, your brand</li>
+        <li>SSL & hosting included</li>
+        <li>3.5% platform fee (guest-paid)</li>
+        <li>$25/yr domain renewal (waived if you bring your own)</li>
+      </ul>
+      <a href="#contact" class="price-cta price-cta-gold">Get Started</a>
+    </div>
+    <div class="price-card reveal">
+      <div class="price-tier">Custom</div>
+      <div class="price-amt">Let's Talk</div>
+      <div class="price-period">tailored to your business requirements</div>
+      <div class="price-pitch">For businesses with more complex needs — multiple units, long-term rentals, lease management, or anything that goes beyond a standard booking flow.</div>
+      <ul class="price-features">
+        <li>Everything in Standard</li>
+        <li>Multi-unit or multi-trip support</li>
+        <li>Seasonal & custom pricing rules</li>
+        <li>Long-term rental application portal</li>
+        <li>Lease & rent collection tools</li>
+        <li>Tenant screening integration</li>
+        <li>Automated pre-arrival emails</li>
+        <li>Owner dashboard & reporting</li>
+        <li>Dedicated account manager</li>
+      </ul>
+      <a href="#contact" class="price-cta price-cta-outline">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- OWNERSHIP / PROTECTIONS -->
+<section class="section ownership">
+  <div class="eyebrow">Client Protections</div>
+  <h2 class="section-title">You own your site.<br><em>Always.</em></h2>
+  <div class="own-grid">
+    <div class="own-list">
+      <div class="own-item reveal">
+        <div class="own-check">✓</div>
+        <div>
+          <div class="own-item-title">Your domain, your brand</div>
+          <div class="own-item-desc">Every site lives on your own domain. Guests see your brand, not ours. We charge a flat $25/yr to cover renewal — and if you ever leave, the domain transfers to you, guaranteed.</div>
+        </div>
+      </div>
+      <div class="own-item reveal">
+        <div class="own-check">✓</div>
+        <div>
+          <div class="own-item-title">Payments route directly to you</div>
+          <div class="own-item-desc">We use Stripe Connect so guest payments deposit directly into your Stripe account. Our 3.5% is split automatically — you never handle our portion.</div>
+        </div>
+      </div>
+      <div class="own-item reveal">
+        <div class="own-check">✓</div>
+        <div>
+          <div class="own-item-title">No surprise lock-ins</div>
+          <div class="own-item-desc">We ask for a 12-month initial term so we can deliver real results. After that, 30 days notice to leave — and your domain transfers to you, always.</div>
+        </div>
+      </div>
+      <div class="own-item reveal">
+        <div class="own-check">✓</div>
+        <div>
+          <div class="own-item-title">Chargeback protection built in</div>
+          <div class="own-item-desc">Every booking generates a confirmation email with your cancellation policy attached. A clear paper trail wins most disputes through Stripe's built-in tools.</div>
+        </div>
+      </div>
+    </div>
+    <div class="own-callout reveal">
+      <div class="callout-title">No Hidden Fees. Ever.</div>
+      <div class="callout-pitch">Every charge that flows through your booking site is clearly disclosed to your guests at checkout. You'll always know exactly what you're earning — and so will they.</div>
+      <div class="callout-row"><div class="callout-row-label">Your setup cost</div><div class="callout-row-val gold">One-time, agreed upfront</div></div>
+      <div class="callout-row"><div class="callout-row-label">Your ongoing cost</div><div class="callout-row-val gold">$25/yr domain renewal only</div></div>
+      <div class="callout-row"><div class="callout-row-label">Guest booking fees</div><div class="callout-row-val">Clearly shown at checkout</div></div>
+      <div class="callout-row"><div class="callout-row-label">Payments to you</div><div class="callout-row-val">Deposited directly, automatically</div></div>
+      <div class="callout-row"><div class="callout-row-label">Manual invoicing</div><div class="callout-row-val">None — ever</div></div>
+      <p style="font-size:0.78rem;color:rgba(255,255,255,0.3);margin-top:1.25rem;line-height:1.7;">Have questions about how fees work before you commit? We'll walk you through everything on your discovery call — no pressure, no surprises.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="cta-inner">
+    <div>
+      <div class="eyebrow" style="color:var(--gold);">Let's Build Together</div>
+      <h2 class="cta-title">Ready to get <em>truly rented?</em></h2>
+      <p class="cta-body">Tell us about your business and we'll reach out within one business day to schedule your free discovery call. No obligation, no hard sell — just a real conversation about what your site needs.</p>
+    </div>
+    <div class="cta-form">
+      <input type="text" class="cta-input" placeholder="Your name">
+      <input type="email" class="cta-input" placeholder="Email address">
+      <input type="text" class="cta-input" placeholder="Property name or business">
+      <select class="cta-select">
+        <option value="" disabled selected>Type of rental business</option>
+        <option>Vacation rental (short-term)</option>
+        <option>Long-term rental / landlord</option>
+        <option>Charter captain or guide</option>
+        <option>Glamping / outdoor experience</option>
+        <option>Event space or hospitality</option>
+        <option>Other</option>
+      </select>
+      <button class="cta-submit" onclick="window.location.href='mailto:Consult@Trulyrented.com?subject=New Consultation Request'">Request My Free Consultation →</button>
+      <div class="cta-reassure">$500 setup fee collected only after you approve the design. No surprises.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="footer-logo">Truly<span>Rented</span></div>
+    <div class="footer-tag">Your rental business, ready for anything.</div>
+  </div>
+  <ul class="footer-links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#revenue">Revenue Model</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="mailto:Consult@Trulyrented.com">Consult@Trulyrented.com</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 TrulyRented LLC · All rights reserved.</div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 4) * 0.08}s`;
+    obs.observe(el);
+  });
+</script>
+</body>
+</html>
